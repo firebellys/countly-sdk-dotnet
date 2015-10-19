@@ -1,0 +1,6 @@
+c:\users\erik.umenhofer\documents\visual studio 2013\Projects\WpfApplication3\CountlySDK\bin\Debug\CountlySDK.dll
+c:\users\erik.umenhofer\documents\visual studio 2013\Projects\WpfApplication3\CountlySDK\bin\Debug\CountlySDK.pdb
+c:\users\erik.umenhofer\documents\visual studio 2013\Projects\WpfApplication3\CountlySDK\bin\Debug\Newtonsoft.Json.dll
+c:\users\erik.umenhofer\documents\visual studio 2013\Projects\WpfApplication3\CountlySDK\obj\Debug\CountlySDK.csprojResolveAssemblyReference.cache
+c:\users\erik.umenhofer\documents\visual studio 2013\Projects\WpfApplication3\CountlySDK\obj\Debug\CountlySDK.dll
+c:\users\erik.umenhofer\documents\visual studio 2013\Projects\WpfApplication3\CountlySDK\obj\Debug\CountlySDK.pdb
