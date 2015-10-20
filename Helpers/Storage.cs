@@ -51,30 +51,31 @@ namespace CountlySDK.Helpers
         /// <param name="objForSave">Object to save</param>
         public static void SaveToFile(string filename, object objForSave)
         {
-            lock (Store)
-            {
-                if (!Store.DirectoryExists(folder))
-                {
-                    Store.CreateDirectory(folder);
-                }
+            // TODO: Write to event log
+            //lock (Store)
+            //{
+            //    if (!Store.DirectoryExists(folder))
+            //    {
+            //        Store.CreateDirectory(folder);
+            //    }
 
-                try
-                {
-                    using (IsolatedStorageFileStream file = new IsolatedStorageFileStream(folder + "/" + filename, FileMode.Create, FileAccess.Write, Store))
-                    {
-                        Serialize(file, objForSave);
+            //    try
+            //    {
+            //        using (IsolatedStorageFileStream file = new IsolatedStorageFileStream(folder + "/" + filename, FileMode.Create, FileAccess.Write, Store))
+            //        {
+            //            Serialize(file, objForSave);
 
-                        file.Close();
-                    };
-                }
-                catch
-                {
-                    if (Countly.IsLoggingEnabled)
-                    {
-                        Debug.WriteLine("save countly data failed");
-                    }
-                }
-            }
+            //            file.Close();
+            //        };
+            //    }
+            //    catch
+            //    {
+            //        if (Countly.IsLoggingEnabled)
+            //        {
+            //            Debug.WriteLine("save countly data failed");
+            //        }
+            //    }
+            //}
         }
 
         /// <summary>
@@ -87,34 +88,34 @@ namespace CountlySDK.Helpers
         {
             T obj = default(T);
 
-            if (!Store.DirectoryExists(folder))
-            {
-                Store.CreateDirectory(folder);
-            }
+            //if (!Store.DirectoryExists(folder))
+            //{
+            //    Store.CreateDirectory(folder);
+            //}
 
-            if (!Store.FileExists(folder + "/" + filename)) return obj;
+            //if (!Store.FileExists(folder + "/" + filename)) return obj;
 
-            lock (Store)
-            {
-                try
-                {
-                    using (IsolatedStorageFileStream file = new IsolatedStorageFileStream(folder + "/" + filename, FileMode.Open, FileAccess.Read, Store))
-                    {
-                        obj = (T)Deserialize(file, typeof(T));
+            //lock (Store)
+            //{
+            //    try
+            //    {
+            //        using (IsolatedStorageFileStream file = new IsolatedStorageFileStream(folder + "/" + filename, FileMode.Open, FileAccess.Read, Store))
+            //        {
+            //            obj = (T)Deserialize(file, typeof(T));
 
-                        file.Close();
-                    };
-                }
-                catch
-                {
-                    if (Countly.IsLoggingEnabled)
-                    {
-                        Debug.WriteLine("countly queue lost");
-                    }
+            //            file.Close();
+            //        };
+            //    }
+            //    catch
+            //    {
+            //        if (Countly.IsLoggingEnabled)
+            //        {
+            //            Debug.WriteLine("countly queue lost");
+            //        }
 
-                    DeleteFile(folder + "/" + filename);
-                }
-            }
+            //        DeleteFile(folder + "/" + filename);
+            //    }
+            //}
 
             return obj;
         }
@@ -125,10 +126,10 @@ namespace CountlySDK.Helpers
         /// <param name="path">Filename to delete</param>
         public static void DeleteFile(string path)
         {
-            if (Store.FileExists(path))
-            {
-                Store.DeleteFile(path);
-            }
+            //if (Store.FileExists(path))
+            //{
+            //    Store.DeleteFile(path);
+            //}
         }
 
         private static void Serialize(Stream streamObject, object objForSerialization)
