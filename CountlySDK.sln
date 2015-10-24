@@ -5,7 +5,7 @@ VisualStudioVersion = 12.0.40629.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CountlySDK", "CountlySDK.csproj", "{FABC79BA-F3C0-41BC-9488-129B5923071F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CountlyTestHarness", "..\CountlyTestHarness\CountlyTestHarness.csproj", "{C94D6A1D-212F-48CA-B225-8A440E83FE75}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CountlyTestHarness", "CountlyTestHarness\CountlyTestHarness.csproj", "{C94D6A1D-212F-48CA-B225-8A440E83FE75}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
