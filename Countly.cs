@@ -34,11 +34,11 @@ using CountlySDK.Server.Responses;
 namespace CountlySDK
 {
     /// <summary>
-    /// This class is the public API for the Countly Windows Phone SDK.
+    /// This class is the public API for the Countly .Net SDK.
     /// </summary>
     public static class Countly
     {
-        // Current version of the Count.ly Windows Phone SDK as a displayable string.
+        // Current version of the Count.ly .Net SDK as a displayable string.
         private const string sdkVersion = "1.0";
 
         // How often update session is sent

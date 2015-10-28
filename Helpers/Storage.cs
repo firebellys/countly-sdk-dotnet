@@ -48,28 +48,31 @@ namespace CountlySDK.Helpers
         /// <param name="objForSave">Object to save</param>
         public static void SaveToFile(string filename, object objForSave)
         {
-            // TODO: Write to event log
             lock (Store)
             {
                 if (!Store.DirectoryExists(folder))
                 {
                     Store.CreateDirectory(folder);
                 }
-
+                //if (!Store.FileExists(folder + "/" + filename))
+                //{
+                //    using (var w = IsolatedStorageFileStrea)
+                //    {
+                //    }
+                //};
                 try
                 {
-                    using (IsolatedStorageFileStream file = new IsolatedStorageFileStream(folder + @"\" + filename, FileMode.Create, FileAccess.Write, Store))
+                    using (IsolatedStorageFileStream file = new IsolatedStorageFileStream(folder + @"\" + filename, FileMode.OpenOrCreate, FileAccess.Write, Store))
                     {
                         Serialize(file, objForSave);
-
                         file.Close();
                     };
                 }
-                catch
+                catch (Exception ex)
                 {
                     if (Countly.IsLoggingEnabled)
                     {
-                        Debug.WriteLine("save countly data failed");
+                        WriteEventLogEntry("Count.ly", EventLogEntryType.Warning, "Saving Count.ly store error: " + ex.Message);
                     }
                 }
             }
@@ -96,21 +99,21 @@ namespace CountlySDK.Helpers
             {
                 try
                 {
-                    using (IsolatedStorageFileStream file = new IsolatedStorageFileStream(folder + "/" + filename, FileMode.Open, FileAccess.Read, Store))
+                    using (IsolatedStorageFileStream file = new IsolatedStorageFileStream(folder + @"\" + filename, FileMode.OpenOrCreate, FileAccess.Write, Store))
                     {
                         obj = (T)Deserialize(file, typeof(T));
 
                         file.Close();
                     };
                 }
-                catch
+                catch (Exception ex)
                 {
                     if (Countly.IsLoggingEnabled)
                     {
-                        Debug.WriteLine("countly queue lost");
+                        WriteEventLogEntry("Count.ly", EventLogEntryType.Warning, "Countly queue lost: " + ex.Message);
                     }
 
-                    DeleteFile(folder + "/" + filename);
+                    DeleteFile(folder + @"\" + filename);
                 }
             }
 
@@ -145,6 +148,33 @@ namespace CountlySDK.Helpers
 
             DataContractSerializer ser = new DataContractSerializer(serializedObjectType);
             return ser.ReadObject(streamObject);
+        }
+
+        /// <summary>
+        /// Writes an entry to the Windows Event Log
+        /// </summary>
+        /// <param name="source"></param>
+        /// <param name="entryType"></param>
+        /// <param name="message"></param>
+        /// <returns></returns>
+        public static bool WriteEventLogEntry(string source, EventLogEntryType entryType, string message)
+        {
+            bool passFail = true;
+            try
+            {
+                if (!EventLog.SourceExists(source))
+                {
+                    EventLog.CreateEventSource(source, "Application");
+                }
+                EventLog eventLog = new EventLog();
+                eventLog.Source = source;
+                eventLog.WriteEntry(message, entryType);
+            }
+            catch
+            {
+                passFail = false; //this method is usually called as a last resort, so there can be no real exception handling
+            }
+            return passFail;
         }
     }
 }

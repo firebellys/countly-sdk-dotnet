@@ -94,7 +94,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\countly-sdk-dotnet\CountlySDK.csproj">
+    <ProjectReference Include="..\CountlySDK.csproj">
       <Project>{fabc79ba-f3c0-41bc-9488-129b5923071f}</Project>
       <Name>CountlySDK</Name>
     </ProjectReference>

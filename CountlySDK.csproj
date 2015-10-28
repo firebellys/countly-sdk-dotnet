@@ -36,6 +36,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Management" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web" />
     <Reference Include="System.Windows" />
@@ -57,7 +58,6 @@
     <Compile Include="Entities\SegmentationItem.cs" />
     <Compile Include="Entities\SessionEvent.cs" />
     <Compile Include="Entities\UpdateSession.cs" />
-    <Compile Include="Helpers\PhoneNameHelper.cs" />
     <Compile Include="Helpers\Storage.cs" />
     <Compile Include="Helpers\TimeHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

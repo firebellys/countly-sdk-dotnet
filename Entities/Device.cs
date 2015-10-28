@@ -22,7 +22,10 @@ THE SOFTWARE.
 
 using CountlySDK.Helpers;
 using System;
+using System.Linq;
 using System.Windows;
+using System.Management;
+using System.Reflection;
 
 namespace CountlySDK.Entitites
 {
@@ -36,7 +39,12 @@ namespace CountlySDK.Entitites
         /// </summary>
         public static string DeviceId
         {
-            get { return "TODO"; }
+            get
+            {
+                var name = (from x in new ManagementObjectSearcher("SELECT * FROM Win32_Processor").Get().OfType<ManagementObject>()
+                            select x.GetPropertyValue("ProcessorID")).FirstOrDefault();
+                return name != null ? name.ToString() : "Unknown";
+            }
         }
 
         /// <summary>
@@ -46,7 +54,9 @@ namespace CountlySDK.Entitites
         {
             get
             {
-                return "TODO";
+                var name = (from x in new ManagementObjectSearcher("SELECT * FROM Win32_OperatingSystem").Get().OfType<ManagementObject>()
+                            select x.GetPropertyValue("Caption")).FirstOrDefault();
+                return name != null ? name.ToString() : "Unknown";
             }
         }
 
@@ -66,15 +76,15 @@ namespace CountlySDK.Entitites
         /// </summary>
         public static string DeviceName
         {
-            get { return "TODO"; }
+            get { return Environment.MachineName; }
         }
 
         /// <summary>
-        /// Returns application version from WMAppManifest.xml
+        /// Returns application version
         /// </summary>
         public static string AppVersion
         {
-            get { return "TODO"; }
+            get { return Assembly.GetExecutingAssembly().FullName; }
         }
 
         /// <summary>
@@ -82,15 +92,15 @@ namespace CountlySDK.Entitites
         /// </summary>
         public static string Resolution
         {
-            get { return "TODO"; }
+            get { return "N/A"; }
         }
 
         /// <summary>
-        /// Returns cellular mobile operator
+        /// Returns local domain name
         /// </summary>
         public static string Carrier
         {
-            get { return "TODO"; }
+            get { return Environment.UserDomainName; }
         }
     }
 }

@@ -24,7 +24,6 @@ namespace CountlyTestHarness
         public MainWindow()
         {
             InitializeComponent();
-
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -39,7 +38,32 @@ namespace CountlyTestHarness
 
         private void TestEventClick(object sender, RoutedEventArgs e)
         {
-            Countly.RecordEvent("Link Click");
+            if (EventTextBox.Text == "Enter test event name." || EventTextBox.Text == "")
+            {
+                MessageBox.Show("Please enter an event name for testing.");
+            }
+            else
+            {
+                Countly.RecordEvent(EventTextBox.Text);
+            }
         }
+
+        private void TextBox_GotFocus(object sender, RoutedEventArgs e)
+        {
+            if (EventTextBox.Text == "Enter test event name.")
+            {
+                EventTextBox.Text = "";
+                EventTextBox.Foreground = Brushes.Black;
+            }
+        }
+
+        private void EventTextBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (EventTextBox.Text == "")
+            {
+                EventTextBox.Text = "Enter test event name.";
+            }
+        }
+
     }
 }

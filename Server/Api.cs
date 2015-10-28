@@ -10,6 +10,7 @@ using System.IO;
 using System.Net;
 using System.Threading.Tasks;
 using System.Web;
+using CountlySDK.Helpers;
 
 namespace CountlySDK
 {
@@ -54,7 +55,7 @@ namespace CountlySDK
 
                     if (Countly.IsLoggingEnabled)
                     {
-                        Debug.WriteLine(responseJson);
+                        Storage.WriteEventLogEntry("Count.ly", EventLogEntryType.Warning, responseJson);
                     }
 
                     T response = JsonConvert.DeserializeObject<T>(responseJson);
@@ -65,7 +66,6 @@ namespace CountlySDK
                 {
                     tcs.SetResult(default(T));
                 }
-
                 return await tcs.Task;
             });
         }
@@ -74,7 +74,8 @@ namespace CountlySDK
         {
             if (Countly.IsLoggingEnabled)
             {
-                Debug.WriteLine(address);
+
+                Storage.WriteEventLogEntry("Count.ly", EventLogEntryType.Warning, address);
             }
 
             TaskCompletionSource<string> taskCompletionSource = new TaskCompletionSource<string>();
@@ -93,7 +94,6 @@ namespace CountlySDK
                     taskCompletionSource.SetResult(reader.ReadToEnd());
                 }
             }
-
             return await taskCompletionSource.Task;
         }
     }
