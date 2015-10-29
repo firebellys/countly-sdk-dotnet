@@ -1,17 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
+﻿using System.Windows;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using CountlySDK;
 
 namespace CountlyTestHarness
@@ -26,17 +14,24 @@ namespace CountlyTestHarness
             InitializeComponent();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Start_Session_Button_Click(object sender, RoutedEventArgs e)
         {
-            Countly.StartSession("http://cloud.count.ly", "8920f7d88827fd961f09c8a022ea88ed642b17e5");
+            if (ApiKeyBox.Text == "" || ApiKeyBox.Text == "Enter API Key")
+            {
+                MessageBox.Show("Please enter an API Key.");
+            }
+            else
+            {
+                Countly.StartSession("http://cloud.count.ly", ApiKeyBox.Text);
+            }
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        private void End_Session_Button_Click(object sender, RoutedEventArgs e)
         {
             Countly.EndSession();
         }
 
-        private void TestEventClick(object sender, RoutedEventArgs e)
+        private void Fire_Event_Button_Click(object sender, RoutedEventArgs e)
         {
             if (EventTextBox.Text == "Enter test event name." || EventTextBox.Text == "")
             {
@@ -65,5 +60,20 @@ namespace CountlyTestHarness
             }
         }
 
+        private void ApiKeyBox_Focus(object sender, RoutedEventArgs e)
+        {
+            if (ApiKeyBox.Text == "Enter API Key")
+            {
+                ApiKeyBox.Text = "";
+            }
+        }
+
+        private void ApiKeyBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (ApiKeyBox.Text == "")
+            {
+                ApiKeyBox.Text = "Enter API Key";
+            }
+        }
     }
 }
