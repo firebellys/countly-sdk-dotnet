@@ -1,5 +1,5 @@
 ﻿/*
-Copyright (c) 2012, 2013, 2014 Countly
+Copyright (c) 2012, 2013, 2014, 2015 Countly
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -36,6 +36,7 @@ namespace CountlySDK.Entitites
     {
         /// <summary>
         /// Returns the unique device identificator
+        /// This is pulling from the CPU ID of the local machine.
         /// </summary>
         public static string DeviceId
         {
@@ -72,9 +73,9 @@ namespace CountlySDK.Entitites
         }
 
         /// <summary>
-        /// Returns the current device model
+        /// Returns the current Machine name of the device.
         /// </summary>
-        public static string DeviceName
+        public static string MachineName
         {
             get { return Environment.MachineName; }
         }
@@ -98,7 +99,7 @@ namespace CountlySDK.Entitites
         /// <summary>
         /// Returns local domain name
         /// </summary>
-        public static string Carrier
+        public static string Domain
         {
             get { return Environment.UserDomainName; }
         }

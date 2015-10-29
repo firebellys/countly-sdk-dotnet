@@ -1,5 +1,5 @@
 ﻿/*
-Copyright (c) 2012, 2013, 2014 Countly
+Copyright (c) 2012, 2013, 2014, 2015 Countly
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -115,7 +115,6 @@ namespace CountlySDK
 
         /// <summary>
         /// Starts Countly tracking session.
-        /// Call from your App.xaml.cs Application_Launching and Application_Activated events.
         /// Must be called before other SDK methods can be used.
         /// </summary>
         /// <param name="serverUrl">URL of the Countly server to submit data to; use "https://cloud.count.ly" for Countly Cloud</param>
@@ -137,12 +136,11 @@ namespace CountlySDK
 
             startTime = DateTime.Now;
 
-            Timer = new DispatcherTimer();
-            Timer.Interval = TimeSpan.FromSeconds(updateInterval);
+            Timer = new DispatcherTimer {Interval = TimeSpan.FromSeconds(updateInterval)};
             Timer.Tick += UpdateSession;
             Timer.Start();
 
-            AddSessionEvent(new BeginSession(AppKey, Device.DeviceId, sdkVersion, new Metrics(Device.OS, Device.OsVersion, Device.DeviceName, Device.Resolution, Device.Carrier, Device.AppVersion)));
+            AddSessionEvent(new BeginSession(AppKey, Device.DeviceId, sdkVersion, new Metrics(Device.OS, Device.OsVersion, Device.MachineName, Device.Resolution, Device.Domain, Device.AppVersion)));
         }
 
         /// <summary>

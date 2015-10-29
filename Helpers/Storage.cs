@@ -1,5 +1,5 @@
 ﻿/*
-Copyright (c) 2012, 2013, 2014 Countly
+Copyright (c) 2012, 2013, 2014, 2015 Countly
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -54,12 +54,6 @@ namespace CountlySDK.Helpers
                 {
                     Store.CreateDirectory(folder);
                 }
-                //if (!Store.FileExists(folder + "/" + filename))
-                //{
-                //    using (var w = IsolatedStorageFileStrea)
-                //    {
-                //    }
-                //};
                 try
                 {
                     using (IsolatedStorageFileStream file = new IsolatedStorageFileStream(folder + @"\" + filename, FileMode.OpenOrCreate, FileAccess.Write, Store))
@@ -112,7 +106,6 @@ namespace CountlySDK.Helpers
                     {
                         WriteEventLogEntry("Count.ly", EventLogEntryType.Warning, "Countly queue lost: " + ex.Message);
                     }
-
                     DeleteFile(folder + @"\" + filename);
                 }
             }
@@ -137,7 +130,7 @@ namespace CountlySDK.Helpers
             if (objForSerialization == null || streamObject == null)
                 return;
 
-            DataContractSerializer ser = new DataContractSerializer(objForSerialization.GetType());
+            var ser = new DataContractSerializer(objForSerialization.GetType());
             ser.WriteObject(streamObject, objForSerialization);
         }
 
@@ -146,7 +139,7 @@ namespace CountlySDK.Helpers
             if (serializedObjectType == null || streamObject == null)
                 return null;
 
-            DataContractSerializer ser = new DataContractSerializer(serializedObjectType);
+            var ser = new DataContractSerializer(serializedObjectType);
             return ser.ReadObject(streamObject);
         }
 
@@ -166,8 +159,7 @@ namespace CountlySDK.Helpers
                 {
                     EventLog.CreateEventSource(source, "Application");
                 }
-                EventLog eventLog = new EventLog();
-                eventLog.Source = source;
+                var eventLog = new EventLog {Source = source};
                 eventLog.WriteEntry(message, entryType);
             }
             catch
