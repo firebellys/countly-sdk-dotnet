@@ -1,5 +1,7 @@
 ##What's Countly?
 
+[![Join the chat at https://gitter.im/firebellys/countly-sdk-dotnet](https://badges.gitter.im/firebellys/countly-sdk-dotnet.svg)](https://gitter.im/firebellys/countly-sdk-dotnet?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 [Countly](http://count.ly) is an innovative, real-time, open source mobile analytics and push notifications application. It collects data from mobile devices, and visualizes this information to analyze mobile application usage and end-user behavior. There are two parts of Countly: the server that collects and analyzes data, and mobile SDK that sends this data. Both parts are open source with different licensing terms.
 
 ##About
